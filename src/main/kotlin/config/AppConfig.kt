@@ -6,11 +6,14 @@ data class BotConfig(
     val ownerId: String
 )
 
+data class Webhook(
+    val id: String,
+    val token: String
+)
+
 data class DiscordConfig(
-    val fromGuild: String,
-    val fromChannel: String,
-    val toGuild: String,
-    val toChannel: String
+    val channelId: String,
+    val webhook: Webhook
 )
 
 data class AppConfig(
