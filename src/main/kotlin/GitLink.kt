@@ -1,12 +1,9 @@
 package dev.vdbroek
 
-import ch.qos.logback.classic.Level
-import ch.qos.logback.classic.Logger
 import com.sksamuel.hoplite.ConfigLoader
 import dev.kord.core.Kord
 import dev.kord.core.behavior.executeIgnored
 import dev.kord.core.event.message.MessageCreateEvent
-import dev.kord.core.kordLogger
 import dev.kord.core.on
 import dev.kord.core.supplier.EntitySupplyStrategy
 import dev.kord.gateway.Intent
@@ -18,8 +15,7 @@ import dev.vdbroek.utils.snowflake
 val config = ConfigLoader().loadConfigOrThrow<AppConfig>("/application.conf")
 
 suspend fun main() {
-    val logger = kordLogger.underlyingLogger as Logger
-    logger.level = if (config.env != "development") Level.INFO else Level.DEBUG
+    System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, if (config.env != "development") "INFO" else "TRACE")
 
     val kord = Kord(config.bot.token) {
         defaultStrategy = EntitySupplyStrategy.cacheWithCachingRestFallback
