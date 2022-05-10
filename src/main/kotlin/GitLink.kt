@@ -20,14 +20,7 @@ suspend fun main() {
     }
 
     kord.on<MessageCreateEvent> {
-        println(message.author?.id)
-        println("426479683249504270".snowflake)
-        println("-----------------------------------------")
-        println(message.channelId)
-        println(config.discord.channelId.snowflake)
-        println("-----------------------------------------")
-        println(message.embeds)
-        println(message.embeds.isNotEmpty())
+        println(message)
 
         if (
             message.author?.id == "426479683249504270".snowflake &&
@@ -48,6 +41,8 @@ suspend fun main() {
                         url = embed.author?.url ?: ""
                         name = embed.author?.name ?: "Unknown"
                     }
+                    title = embed.title
+                    url = embed.url
                     color = embed.color
                     description = embed.description
                 }
