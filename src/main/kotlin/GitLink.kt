@@ -31,7 +31,7 @@ suspend fun main() {
             println(message.author)
 
             webhook.executeIgnored(config.discord.webhook.token) {
-                username = message.data.author.username ?: "GitHub"
+                username = message.data.author.username
                 avatarUrl =
                     if (message.data.author.avatar != null) "https://cdn.discordapp.com/avatars/${message.data.author.id}/${message.data.author.avatar}.webp?size=80" else null
                         ?: webhook.data.avatar
