@@ -2,7 +2,7 @@ package dev.vdbroek
 
 import com.sksamuel.hoplite.ConfigLoader
 import dev.kord.core.Kord
-import dev.kord.core.behavior.execute
+import dev.kord.core.behavior.executeIgnored
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
 import dev.kord.core.supplier.EntitySupplyStrategy
@@ -20,10 +20,8 @@ suspend fun main() {
     }
 
     kord.on<MessageCreateEvent> {
-        println(message)
-
         if (
-            message.author?.id == "426479683249504270".snowflake &&
+            message.data.author.id == "426479683249504270".snowflake &&
             message.channelId == config.discord.channelId.snowflake &&
             message.embeds.isNotEmpty()
         ) {
@@ -32,9 +30,12 @@ suspend fun main() {
             println(embed)
             println(message.author)
 
-            webhook.execute(config.discord.webhook.token) {
-                username = message.author?.username ?: "GitHub"
-                avatarUrl = message.author?.avatar?.url ?: webhook.data.avatar ?: "https://b.catgirlsare.sexy/H78e62IgOKHq.png"
+            webhook.executeIgnored(config.discord.webhook.token) {
+                username = message.data.author.username ?: "GitHub"
+                avatarUrl =
+                    if (message.data.author.avatar != null) "https://cdn.discordapp.com/avatars/${message.data.author.id}/${message.data.author.avatar}.webp?size=80" else null
+                        ?: webhook.data.avatar
+                        ?: "https://b.catgirlsare.sexy/H78e62IgOKHq.png"
                 embed {
                     author {
                         icon = embed.author?.iconUrl ?: "https://b.catgirlsare.sexy/692WKMorWBmn.png"
