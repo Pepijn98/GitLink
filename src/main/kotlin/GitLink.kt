@@ -1,6 +1,7 @@
 package dev.vdbroek
 
 import com.sksamuel.hoplite.ConfigLoader
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
@@ -15,7 +16,11 @@ suspend fun main() {
 
     kord.on<MessageCreateEvent> {
         if (message.author?.isBot == true) return@on
+
         println(message)
+        if (message.author?.id == Snowflake("426479683249504270")) {
+
+        }
     }
 
     kord.login {
