@@ -42,6 +42,14 @@ tasks {
         }
     }
 
+    jar {
+        archiveFileName.set("GitLink.jar")
+    }
+
+    shadowJar {
+        archiveFileName.set("GitLink.jar")
+    }
+
     test {
         useJUnitPlatform()
     }

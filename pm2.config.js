@@ -6,7 +6,7 @@ module.exports = {
             // script: "D:\\Program Files\\Eclipse Adoptium\\jdk-17.0.3.7-hotspot\\bin\\java.exe",
             args:[
                 "-jar",
-                "./build/libs/GitLink-0.0.1-all.jar",
+                "./build/libs/GitLink.jar",
             ],
             instances: 1,
             autorestart: true,
