@@ -6,6 +6,7 @@ import com.sksamuel.hoplite.ConfigLoader
 import dev.kord.core.Kord
 import dev.kord.core.behavior.executeIgnored
 import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.kordLogger
 import dev.kord.core.on
 import dev.kord.core.supplier.EntitySupplyStrategy
 import dev.kord.gateway.Intent
@@ -13,12 +14,11 @@ import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.message.create.embed
 import dev.vdbroek.config.AppConfig
 import dev.vdbroek.utils.snowflake
-import org.slf4j.LoggerFactory
 
 val config = ConfigLoader().loadConfigOrThrow<AppConfig>("/application.conf")
 
 suspend fun main() {
-    val logger = LoggerFactory.getLogger("dev.kord") as Logger
+    val logger = kordLogger.underlyingLogger as Logger
     logger.level = if (config.env != "development") Level.INFO else Level.DEBUG
 
     val kord = Kord(config.bot.token) {
