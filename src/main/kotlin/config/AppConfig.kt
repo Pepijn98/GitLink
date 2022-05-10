@@ -7,6 +7,7 @@ data class BotConfig(
 )
 
 data class Webhook(
+    val oldId: String,
     val id: String,
     val token: String
 )

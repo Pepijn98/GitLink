@@ -23,7 +23,7 @@ suspend fun main() {
 
     kord.on<MessageCreateEvent> {
         if (
-            message.data.author.id == "426479683249504270".snowflake &&
+            message.data.author.id == config.discord.webhook.oldId.snowflake &&
             message.channelId == config.discord.channelId.snowflake &&
             message.embeds.isNotEmpty()
         ) {
