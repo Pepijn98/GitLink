@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.vdbroek"
-version = "0.0.1"
+version = "1.0.0"
 
 application {
     mainClass.set("$group.GitLinkKt")
@@ -22,8 +22,6 @@ dependencies {
     implementation("com.sksamuel.hoplite:hoplite-hocon:2.1.4")
 
     implementation("org.slf4j:slf4j-simple:1.7.36")
-//    implementation("ch.qos.logback:logback-core:1.2.11")
-//    implementation("ch.qos.logback:logback-classic:1.2.11")
 
     testImplementation(kotlin("test"))
 }
