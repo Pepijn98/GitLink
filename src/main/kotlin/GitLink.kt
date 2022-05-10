@@ -2,7 +2,7 @@ package dev.vdbroek
 
 import com.sksamuel.hoplite.ConfigLoader
 import dev.kord.core.Kord
-import dev.kord.core.behavior.executeIgnored
+import dev.kord.core.behavior.execute
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
 import dev.kord.core.supplier.EntitySupplyStrategy
@@ -20,6 +20,15 @@ suspend fun main() {
     }
 
     kord.on<MessageCreateEvent> {
+        println(message.author?.id)
+        println("426479683249504270".snowflake)
+        println("-----------------------------------------")
+        println(message.channelId)
+        println(config.discord.channelId.snowflake)
+        println("-----------------------------------------")
+        println(message.embeds)
+        println(message.embeds.isNotEmpty())
+
         if (
             message.author?.id == "426479683249504270".snowflake &&
             message.channelId == config.discord.channelId.snowflake &&
@@ -30,7 +39,7 @@ suspend fun main() {
             println(embed)
             println(message.author)
 
-            webhook.executeIgnored(config.discord.webhook.token) {
+            webhook.execute(config.discord.webhook.token) {
                 username = message.author?.username ?: "GitHub"
                 avatarUrl = message.author?.avatar?.url ?: webhook.data.avatar ?: "https://b.catgirlsare.sexy/H78e62IgOKHq.png"
                 embed {
