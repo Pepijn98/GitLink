@@ -1,5 +1,7 @@
 package dev.vdbroek
 
+import ch.qos.logback.classic.Level
+import ch.qos.logback.classic.Logger
 import com.sksamuel.hoplite.ConfigLoader
 import dev.kord.core.Kord
 import dev.kord.core.behavior.executeIgnored
@@ -11,10 +13,14 @@ import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.message.create.embed
 import dev.vdbroek.config.AppConfig
 import dev.vdbroek.utils.snowflake
+import org.slf4j.LoggerFactory
 
 val config = ConfigLoader().loadConfigOrThrow<AppConfig>("/application.conf")
 
 suspend fun main() {
+    val logger = LoggerFactory.getLogger("dev.kord") as Logger
+    logger.level = if (config.env != "development") Level.INFO else Level.DEBUG
+
     val kord = Kord(config.bot.token) {
         defaultStrategy = EntitySupplyStrategy.cacheWithCachingRestFallback
     }
@@ -27,8 +33,6 @@ suspend fun main() {
         ) {
             val webhook = kord.getWebhookOrNull(config.discord.webhook.id.snowflake) ?: return@on
             val embed = message.embeds[0]
-            println(embed)
-            println(message.author)
 
             webhook.executeIgnored(config.discord.webhook.token) {
                 username = message.data.author.username

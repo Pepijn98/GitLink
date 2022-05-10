@@ -17,6 +17,7 @@ data class DiscordConfig(
 )
 
 data class AppConfig(
+    val env: String,
     val bot: BotConfig,
     val discord: DiscordConfig
 )
